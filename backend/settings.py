@@ -147,3 +147,6 @@ STATIC_URL = '/static/'
 RESOURCES_DIR = os.path.join(BASE_DIR, 'resources')
 IMAGES_DIR = os.path.join(RESOURCES_DIR, 'images')
 WX_APP_SECRET = '291020312727f26c3b600caf1aa9cae4'
+CRONJOBS = [
+    ('*/1 * * * *','cron.jobs.demo')
+]
