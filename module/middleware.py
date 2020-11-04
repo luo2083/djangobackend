@@ -4,10 +4,11 @@ import logging
 from backend import settings
 
 logger = logging.getLogger('statistics')
+logger2 = logging.getLogger('django')
 class StatisticsMiddleware:
     def __int__(self, get_response):
         self.get_response = get_response
-        logger.info('Build StatisticsMiddleware.')
+        logger2.info('Build StatisticsMiddleware.')
 
     def __call__(self, request):
         tick = time.time()
