@@ -148,6 +148,88 @@ STATIC_URL = '/static/'
 RESOURCES_DIR = os.path.join(BASE_DIR, 'resources')
 IMAGES_DIR = os.path.join(RESOURCES_DIR, 'images')
 WX_APP_SECRET = '291020312727f26c3b600caf1aa9cae4'
+SESSION_COOKIE_AGE = 60*60*24*1
+
+LOG_DIR = os.path.join(BASE_DIR, 'log')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+LOGGING = {
+    'version': 1,
+    'disable_existng_loggers': True,
+    'formaters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d]'
+                       '[%(pathname)s:%(funcName)s:%(lineno)d] [%(levelname)s]- %(message)s'
+        },
+        'simple': {
+            'format': '%(asctime)s %(message)s'
+        }
+    },
+    'filters': {
+        'test': {
+            '()': 'ops.TestFilter'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'error_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+            'maxBytes': 1024*1024*1,
+            'backupCount': 5,
+            'formatter': 'standard',
+            'encoding': 'utf8',
+        },
+        'file_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'service.log'),
+            'maxBytes': 1024*1024*1,
+            'backupCount': 5,
+            'formtter': 'standard',
+            'encoding': 'utf8'
+        },
+        'console_handler':{# 输出到控制台
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+        'statistics_handler':{
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR,'statistics.log'),
+            'maxBytes':1024*1024*5,
+            'backupCount': 5,
+            'formatter':'simple',
+            'encoding': 'utf8',
+        }
+    },
+    'loggers': {# logging管理器
+        'django': {
+            # 'handlers': ['console_handler', 'file_handler', 'error_handler'],
+            'handlers': ['console_handler', 'file_handler'],
+            'filters': ['test'],
+            'level': 'DEBUG'
+        },
+        'statistics': {
+            'handlers': ['statistics_handler'],
+            'level': 'DEBUG'
+        }
+    }
+}
 CRONJOBS = [
-    ('*/1 * * * *','cron.jobs.demo')
+    # ('*/1 * * * *','cron.jobs.demo')
+    ('*/1 * * * *','cron.jobs.report_by_mail')
 ]
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '1354029556@qq.com'
+EMAIL_HOST_PASSWORD = 'dklvcvmpzchfibji'
+EMAIL_USE_TLS = True
+EMAIL_FROM = '1354029556@qq.com'
+STATISTICS_SPLIT_FLAG = '||'
