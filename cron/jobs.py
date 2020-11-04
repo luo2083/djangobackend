@@ -21,7 +21,7 @@ def statistics():
     with open(data_file, 'r') as data_file:
         for line in data_file:
             line = line.strip()
-            content = line.split('')[2]
+            content = line.split(' ')[2]
             content_list = content.split(settings.STATISTICS_SPLIT_FLAG)
             print(content_list)
             log_time = int(content_list[0].split('=')[1][1:-1])
