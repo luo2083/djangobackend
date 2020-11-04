@@ -191,7 +191,7 @@ LOGGING = {
             'filename': os.path.join(LOG_DIR, 'service.log'),
             'maxBytes': 1024*1024*1,
             'backupCount': 5,
-            'formtter': 'standard',
+            'formatter': 'standard',
             'encoding': 'utf8'
         },
         'console_handler':{# 输出到控制台
