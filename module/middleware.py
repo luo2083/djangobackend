@@ -1,11 +1,12 @@
 import time
 import logging
+from django.utils.deprecation import MiddlewareMixin
 
 from backend import settings
 
 logger = logging.getLogger('statistics')
 logger2 = logging.getLogger('django')
-class StatisticsMiddleware:
+class StatisticsMiddleware(MiddlewareMixin):
     def __int__(self, get_response):
         self.get_response = get_response
         logger2.info('Build StatisticsMiddleware.')
