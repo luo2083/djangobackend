@@ -157,7 +157,7 @@ if not os.path.exists(LOG_DIR):
 LOGGING = {
     'version': 1,
     'disable_existng_loggers': True,
-    'formaters': {
+    'formatters': {
         'standard': {
             'format': '%(asctime)s [%(threadName)s:%(thread)d]'
                        '[%(pathname)s:%(funcName)s:%(lineno)d] [%(levelname)s]- %(message)s'
