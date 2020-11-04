@@ -30,7 +30,7 @@ def statistics():
             full_path = content_list[2].split('=')[1][1:-1]
             cost = float(content_list[3].split('=')[1][1:-1])
 
-            if path not in result.keys:
+            if path not in result.keys():
                 result[path] = []
             result[path].append(cost)
 
